@@ -27,6 +27,7 @@ export class AuthController {
 		return this.authService.signup(signupData)
     }
 
+	// TODO: add @UseGuards(JwtAuthGuard) on production
 	@Get('users')
     async users() {
         return this.authService.users();

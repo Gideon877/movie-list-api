@@ -9,7 +9,7 @@ import { UserSignUpDto } from './dto/signup.dto';
 
 @Injectable()
 export class AuthService {
-    private readonly saltRounds = 10; 
+    private readonly saltRounds = 10;
 
     constructor(
         @InjectModel(User.name) private userModel: Model<User>,
@@ -27,14 +27,14 @@ export class AuthService {
             .findOne({ username: user.username })
             .exec();
         if (existingUser) {
-            return false; 
+            return false;
         }
-        
+
         const hashedPassword = await bcrypt.hash(user.password, this.saltRounds);
 
         const newUser = new this.userModel({
             ...user,
-            password: hashedPassword, 
+            password: hashedPassword,
             _id: new Types.ObjectId(),
         });
         await newUser.save();
@@ -45,12 +45,17 @@ export class AuthService {
         const user = await this.userModel
             .findOne({ username })
             .exec();
-        
+
         if (user && await bcrypt.compare(password, user.password)) {
-            
+
             return user;
         }
-        return null; 
+        return null;
+    }
+
+    async validateUserById(userId: Types.ObjectId): Promise<User | null> {
+        const user = await this.userModel.findById(new Types.ObjectId(userId)).exec();
+        return user ? user : null;
     }
 
     async users(): Promise<User[] | null> {

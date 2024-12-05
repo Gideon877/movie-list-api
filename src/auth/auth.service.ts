@@ -16,10 +16,10 @@ export class AuthService {
         private readonly jwtService: JwtService,
     ) { }
 
-    async login(user: User): Promise<{ access_token: string }> {
+    async login(user: User): Promise<any> {
         const payload: JwtPayload = { username: user.username, sub: user._id };
         const accessToken = await this.jwtService.signAsync(payload);
-        return { access_token: accessToken };
+        return { token: accessToken, userId: user._id };
     }
 
     async signup(user: UserSignUpDto): Promise<boolean> {

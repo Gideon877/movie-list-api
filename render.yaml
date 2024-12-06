@@ -3,5 +3,5 @@ services:
     name: movie-list-api
     env: node
     buildCommand: yarn build
-    startCommand: yarn start:prod
+    startCommand: npm start
     plan: free

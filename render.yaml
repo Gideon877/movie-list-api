@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: movie-list-api
+    env: node
+    buildCommand: yarn build
+    startCommand: yarn start:prod
+    plan: free

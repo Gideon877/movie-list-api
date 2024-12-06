@@ -1,7 +1,6 @@
 services:
   - type: web
+    runtime: node
     name: movie-list-api
-    env: node
-    buildCommand: yarn build
-    startCommand: yarn start:prod
-    plan: free
+    buildCommand: yarn
+    startCommand: node dist/main.js

@@ -1,6 +1,0 @@
-# services:
-#   - type: web
-#     runtime: node
-#     name: movie-list-api
-#     buildCommand: yarn
-#     startCommand: node dist/main.js

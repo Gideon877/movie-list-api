@@ -10,7 +10,6 @@ export class MoviesService {
 	constructor(@InjectModel(Movie.name) private movieModel: Model<Movie>) { }
 
 	async findFavoriteMovies(userId: string): Promise<Movie[]> {
-		console.log(userId);
 		return await this.movieModel
 			.find({ user: userId })
 			.populate('user')
@@ -18,6 +17,10 @@ export class MoviesService {
 	}
 
 	async addFavoriteMovie(userId: string, movie: MovieDto): Promise<void> {
+		const addMovie = await this.movieModel.findOne({ user: userId, id: movie.id});
+
+		if(addMovie) return;
+		
 		const createdMovie = new this.movieModel({
 			_id: new Types.ObjectId(),
 			...movie,
